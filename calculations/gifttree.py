@@ -45,7 +45,13 @@ class gift_tree:
         revenues = fruits * self.gift_tree_fruit_sell_price
         profits = revenues - total_cost
 
-        # Probability of profit
+        # Calculate the probability of profit
         prob_of_profit = np.sum(pmf[profits > 0])
+
+        # Update profits and fruits to remove the unrealistic values
+        min_total_fruit = self.n_trials * min(self.fruit_values)
+        remove_count = sum(x < min_total_fruit for x in fruits)
+        fruits = fruits[remove_count:]
+        profits = profits[remove_count:]
 
         return prob_of_profit, fruits, pmf, profits
