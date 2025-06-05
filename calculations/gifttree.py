@@ -1,6 +1,5 @@
 import numpy as np
 
-
 class gift_tree:
     """
     Class including methods for calculating and display gift tree profits.
@@ -13,9 +12,9 @@ class gift_tree:
     fruit_prob = 0.25
 
     # Cost of selling a single gift tree fruit
-    gift_tree_fruit_sell_price = 7e6
+    gift_tree_fruit_sell_price = 0.7e6
 
-    def __init__(self, n_trials: int, cost_per_tree: int = 1.9e6):
+    def __init__(self, n_trials: int, cost_per_tree: float = 1.9e6):
         self.n_trials = n_trials
         self.cost_per_tree = cost_per_tree
 
@@ -30,9 +29,6 @@ class gift_tree:
         - profits (np.ndarray): Corresponding profit values.
         """
 
-        # Profit
-        profit_per_fruit = self.cost_per_tree - self.gift_tree_fruit_sell_price
-
         # PMF for a single event
         single_event_pmf = np.zeros(max(self.fruit_values) + 1)
         for val in self.fruit_values:
@@ -46,7 +42,7 @@ class gift_tree:
         # Compute total cost, revenues, and profits
         total_cost = self.n_trials * self.cost_per_tree
         fruits = np.arange(len(pmf))
-        revenues = fruits * profit_per_fruit
+        revenues = fruits * self.gift_tree_fruit_sell_price
         profits = revenues - total_cost
 
         # Probability of profit
