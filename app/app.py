@@ -16,8 +16,11 @@ from gifttree import gift_tree
 st.markdown("""
 <style>
 @font-face {
-  font-family: 'kalyent';
+  font-family: 'kalyant';
   src: url('kalyant.otf') format('opentype');
+}
+html, body, [class*="css"] {
+  font-family: 'kalyant', sans-serif;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -36,17 +39,13 @@ if st.button("Compute Probability"):
 
     st.markdown(f"### 📊 Probability of Making a Profit: `{prob_of_profit:.4f}`")
 
-    # Show min/max profit range
-    st.write(f"Min Profit: {profits.min():,.0f}")
-    st.write(f"Max Profit: {profits.max():,.0f}")
+    # Summary stats
+    summary_stats = gt.get_summary_stats(profits)
+    st.markdown(summary_stats)
+    st.write(f"Min Profit: {summary_stats['min_profit']:,.0f}")
+    st.write(f"Max Profit: {summary_stats['max_profit']:,.0f}")
+    st.write(f"Average Profit: {summary_stats['average_profit']:,.0f}")
 
-    # Show average profit range, which is effectively just the median
-    n = len(profits)
-    if n % 2 == 1:
-        median = profits[n // 2]
-    else:
-        median = (profits[n // 2 - 1] + profits[n // 2]) / 2
-    st.write(f"Average Profit: {median:,.0f}")
-
+    # Display the PMF plot
     plot = gt.get_prob_plot(fruits, pmf, profits)
     st.plotly_chart(plot, use_container_width=True)

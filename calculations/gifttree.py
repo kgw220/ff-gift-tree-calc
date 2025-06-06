@@ -60,6 +60,30 @@ class gift_tree:
         return prob_of_profit, fruits, pmf, profits
     
 
+    def get_summary_stats(self, profits: np.array) -> dict:
+        """
+        Calculate summary statistics for the profits.
+
+        Parameters:
+        - profits: np.ndarray
+            Array of profit values.
+
+        Returns:
+        - dict:
+            Dictionary containing min, max, and average profit.
+        """
+        
+        min_profit = profits.min()
+        max_profit = profits.max()
+        mean_profit = profits.mean()
+        
+        return {
+            'min_profit': min_profit,
+            'max_profit': max_profit,
+            'average_profit': mean_profit
+        }
+    
+
     def get_prob_plot(self, fruits: np.array, pmf: np.array, profits: np.array) -> go.Figure:
         """
         Generate a plot of the probability mass function (PMF) for the total fruit count.
