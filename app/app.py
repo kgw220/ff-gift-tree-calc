@@ -10,7 +10,8 @@ from calculations.gifttree import gift_tree
 
 # Step 3: Read base64 string from file
 font_b64_path = Path("assets/font_base64.txt")  
-font_base64 = font_b64_path.read_text(encoding="utf-8").strip()
+font_base64 = "".join(Path("assets/font_base64.txt").read_text(encoding="utf-8").splitlines()).strip()
+
 
 # Step 4: Define @font-face CSS with the embedded base64 font
 font_css = f"""
