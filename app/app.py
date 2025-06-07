@@ -3,6 +3,7 @@ import os
 import streamlit as st
 
 # Now import the class
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from calculations.gifttree import gift_tree
 
 # Streamlit App Title
