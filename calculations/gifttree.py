@@ -132,8 +132,8 @@ class gift_tree:
         ))
         
         # Defining custom css for the font
-        with open("app/assets/Kalyant Demo-Bold.otf", "rb") as f:
-            font_base64 = base64.b64encode(f.read()).decode("utf-8")
+        font_path = Path("app/assets/Kalyant Demo-Bold.otf")
+        font_base64 = base64.b64encode(font_path.read_bytes()).decode("utf-8")
         font_css = f"""
                     <style>
                     @font-face {{
