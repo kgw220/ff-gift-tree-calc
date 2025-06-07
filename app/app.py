@@ -2,7 +2,6 @@ import sys
 import os
 import streamlit as st
 import streamlit.components.v1 as components
-from pathlib import Path
 
 # Importing gift tree module
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
@@ -10,13 +9,12 @@ from calculations.gifttree import gift_tree
 
 st.title("Gift Tree Profit Probability Calculator")
 
+# Input for number of gift trees
 n_trees = st.slider("Number of Gift Trees", min_value=1, max_value=20, value=20, step=1)
 
 # Selection for cost of gift tree seeds
 cost_per_tree = st.radio(
-    "Gift Tree Seed Cost",
-    ["$1,900,000", "$2,000,000", "$2,100,000"],
-    horizontal=True
+    "Gift Tree Seed Cost", ["$1,900,000", "$2,000,000", "$2,100,000"], horizontal=True
 )
 gift_tree_cost_convert = {
     "$1,900,000": 1900000,
@@ -26,15 +24,11 @@ gift_tree_cost_convert = {
 cost_per_tree = gift_tree_cost_convert[cost_per_tree]
 
 # Mode selection on rather user wants to see probabilities or percentages
-mode_label = st.radio(
-    "Display Mode",
-    ["Probability", "Percentage"],
-    horizontal=True
-)
+mode_label = st.radio("Display Mode", ["Probability", "Percentage"], horizontal=True)
 mode_convert = {
     "Probability": False,
     "Percentage": True,
-}   
+}
 mode = mode_convert[mode_label]
 
 # Calculate and display everything with the user chosen options
@@ -43,9 +37,13 @@ prob_of_profit, fruits, pmf, profits = gt.compute_profit_probability()
 
 # If percentages are selected, show percentage of making profit. Otherwise, show probability.
 if mode:
-    st.markdown(f"### {mode_label} of making a profit from {n_trees} tree(s): `{prob_of_profit * 100:.4f}%`")
+    st.markdown(
+        f"### {mode_label} of making a profit from {n_trees} tree(s): `{prob_of_profit * 100:.4f}%`"
+    )
 else:
-    st.markdown(f"### {mode_label} of making a profit from {n_trees} tree(s): `{prob_of_profit:.4f}`")
+    st.markdown(
+        f"### {mode_label} of making a profit from {n_trees} tree(s): `{prob_of_profit:.4f}`"
+    )
 
 # Display summary statistics
 st.markdown(f"#### Min Profit: {gt.get_min(profits):,.0f} gold")

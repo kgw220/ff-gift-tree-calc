@@ -2,9 +2,8 @@ import numpy as np
 import plotly.graph_objects as go
 import base64
 
-from PIL import Image
-from io import BytesIO
 from pathlib import Path
+
 
 class gift_tree:
     """
@@ -63,7 +62,6 @@ class gift_tree:
         pmf = pmf[remove_count:]
 
         return prob_of_profit, fruits, pmf, profits
-    
 
     def get_min(self, profits: np.array) -> dict:
         """
@@ -77,10 +75,9 @@ class gift_tree:
         - float:
             The minimum profit value.
         """
-        
+
         return profits.min()
-    
-    
+
     def get_max(self, profits: np.array) -> dict:
         """
         Calculate the maximum of the profits.
@@ -93,9 +90,8 @@ class gift_tree:
         - float:
             The maximum profit value.
         """
-        
-        return profits.max()    
-    
+
+        return profits.max()
 
     def get_average(self, profits: np.array) -> dict:
         """
@@ -109,12 +105,12 @@ class gift_tree:
         - float:
             The average profit value.
         """
-        
-        return profits.mean()
-    
 
-    def get_pmf_plot(self, fruits: np.array, pmf: np.array, profits: np.array, percent: bool = False) \
-     -> go.Figure:
+        return profits.mean()
+
+    def get_pmf_plot(
+        self, fruits: np.array, pmf: np.array, profits: np.array, percent: bool = False
+    ) -> go.Figure:
         """
         Generate a plot of the probability mass function (PMF) for the total fruit count.
 
@@ -122,7 +118,7 @@ class gift_tree:
         - fruits: np.ndarray
             Total fruit count values (x-axis of PMF); returned from compute_profit_probability.
         - pmf: np.ndarray
-            Probability mass function values for each total fruit count; returned from 
+            Probability mass function values for each total fruit count; returned from
             compute_profit_probability.
         - profits: np.ndarray
             Corresponding profit values; returned from compute_profit_probability.
@@ -136,45 +132,48 @@ class gift_tree:
         # If percent is True, convert PMF to percentages
         if percent:
             pmf = pmf * 100
-            label = 'Percentage'
+            label = "Percentage"
         else:
-            label = 'Probability'
-        
+            label = "Probability"
+
         # Compute the minimum number of fruits needed to break even
         break_even_fruit_count = np.min(fruits[profits > 0])
 
         # Create Plotly bar chart
         fig = go.Figure()
 
+        # Add bars for pmf, and label as percentage or probability
         if percent:
-            hovertemplate="%{y}% to get %{x} fruit<extra></extra>"
+            hovertemplate = "%{y}% to get %{x} fruit<extra></extra>"
         else:
-            hovertemplate="%{y} probability to get %{x} fruit<extra></extra>"
-        # PMF bars
-        fig.add_trace(go.Bar(
-            x=fruits,
-            y=pmf,
-            marker_color='royalblue',
-            showlegend=False,
-            hovertemplate=hovertemplate
-        ))
-        
+            hovertemplate = "%{y} probability to get %{x} fruit<extra></extra>"
+        fig.add_trace(
+            go.Bar(
+                x=fruits,
+                y=pmf,
+                marker_color="royalblue",
+                showlegend=False,
+                hovertemplate=hovertemplate,
+            )
+        )
+
         # Vertical line at break-even point
         # Densify y values so you can see label at any y value on the vertical line
-        dense_y = np.linspace(0, max(pmf), 200)  
-        dense_x = [break_even_fruit_count] * len(dense_y)  
-        fig.add_trace(go.Scatter(
-            x=dense_x,
-            y=dense_y,
-            mode='lines',
-            name='Profit Threshold',
-            line=dict(color='red', dash='dash'),
-            hovertemplate="Profit at %{x} fruit<extra></extra>"
-        ))
-
+        dense_y = np.linspace(0, max(pmf), 200)
+        dense_x = [break_even_fruit_count] * len(dense_y)
+        fig.add_trace(
+            go.Scatter(
+                x=dense_x,
+                y=dense_y,
+                mode="lines",
+                name="Profit Threshold",
+                line=dict(color="red", dash="dash"),
+                hovertemplate="Profit at %{x} fruit<extra></extra>",
+            )
+        )
 
         # Reference parent directory to find font file
-        repo_root = Path(__file__).resolve().parent.parent  
+        repo_root = Path(__file__).resolve().parent.parent
         font_path = repo_root / "app/assets/Kalyant Demo-Bold.otf"
 
         # Read the font file and encode it in base64
@@ -188,27 +187,24 @@ class gift_tree:
                     }}
                     </style>
                     """
-        
+
         # Update layout with custom font and styling
         if percent:
             label_title = f"Percentages of All Possible Fruit Counts from {self.n_trees} Gift Trees"
         else:
-            label_title = f"Probabilities of All Possible Fruit Counts from {self.n_trees} Gift Trees"
+            label_title = f"Probabilities of All Possible Fruit Counts from {self.n_trees} Gift \
+            Trees"
         fig.update_layout(
             title=label_title,
-            xaxis_title='Total Fruit Count',
+            xaxis_title="Total Fruit Count",
             yaxis_title=label,
             showlegend=True,
-            font=dict(
-                family="KalyantBold",  
-                size=18,
-                color="white" 
-            ),
-            paper_bgcolor='rgba(0,0,0,0)',
-            plot_bgcolor='rgba(0,0,0,0)'
+            font=dict(family="KalyantBold", size=18, color="white"),
+            paper_bgcolor="rgba(0,0,0,0)",
+            plot_bgcolor="rgba(0,0,0,0)",
         )
 
         # Convert to HTML
-        html = font_css + fig.to_html(include_plotlyjs='cdn')
+        html = font_css + fig.to_html(include_plotlyjs="cdn")
 
         return html
