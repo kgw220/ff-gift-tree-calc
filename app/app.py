@@ -12,8 +12,20 @@ st.title("Gift Tree Profit Probability Calculator")
 
 n_trees = st.slider("Number of Gift Trees", min_value=1, max_value=20, value=20, step=1)
 
-# NOTE: Probably better at separate buttons since there are only three options
-cost_per_tree = st.slider("Cost of Gift Tree Seed", min_value=1_900_000, max_value=2_100_000, value=(1_900_000), step=100_000)
+gift_tree_seed_cost = st.radio(
+    "Gift Tree Seed Cost",
+    ["$1,900,000", "$2,000,000", "$2,100,000"],
+    horizontal=True
+)
+
+# Map display values to numeric values
+display_to_value = {
+    "$1,900,000": 1900000,
+    "$2,000,000": 2000000,
+    "$2,100,000": 2100000,
+}
+
+cost_per_tree = display_to_value[gift_tree_seed_cost]
 
 # TODO: Update this to show percentages instead of probabilities
 if st.button("Compute Probability"):
