@@ -160,8 +160,9 @@ class gift_tree:
             font=dict(
                 family="KalyantBold",  
                 size=18,
-                color="black"
+                color="white" # Change color of plot 
             ),
+            paper_bgcolor='rgba(0,0,0,0)',
             images=[dict(
                 source=img_uri,
                 xref="paper",
