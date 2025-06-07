@@ -1,23 +1,17 @@
 import sys
 import os
 import streamlit as st
-import subprocess
 
-# Print installed packages
-st.code(subprocess.check_output("pip freeze", shell=True).decode())
-
-# Now import the class
+# Importing gift tree module
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from calculations.gifttree import gift_tree
 
-# Streamlit App Title
+
 st.title("Gift Tree Profit Probability Calculator")
 
-# User Inputs
 n_trees = st.slider("Number of Gift Trees", min_value=1, max_value=20, value=20, step=1)
 cost_per_tree = st.slider("Cost of Gift Tree Seed", min_value=1_900_000, max_value=2_100_000, value=(1_900_000), step=100_000)
 
-# Calculate button
 if st.button("Compute Probability"):
     gt = gift_tree(n_trees=n_trees, cost_per_tree=cost_per_tree)
     prob_of_profit, fruits, pmf, profits = gt.compute_profit_probability()
