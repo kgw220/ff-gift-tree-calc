@@ -1,3 +1,7 @@
+"""
+Sample streamlit app for the Gift Tree Profit Probability Calculator.
+"""
+
 import sys
 import os
 import streamlit as st
