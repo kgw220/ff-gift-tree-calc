@@ -89,7 +89,6 @@ class gift_tree:
         }
     
 
-    # TODO: Update this so background is transparent and font is correctly set
     def get_prob_plot(self, fruits: np.array, pmf: np.array, profits: np.array) -> go.Figure:
         """
         Generate a plot of the probability mass function (PMF) for the total fruit count.
