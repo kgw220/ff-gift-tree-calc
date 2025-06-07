@@ -7,13 +7,13 @@ import streamlit.components.v1 as components
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from calculations.gifttree import gift_tree
 
-print("Current directory:", os.getcwd())
+st.markdown("Current directory:", os.getcwd())
 
 # Try to list the assets folder
 try:
-    print("Assets:", os.listdir("assets"))
+    st.markdown("Assets:", os.listdir("assets"))
 except FileNotFoundError:
-    print("Assets directory not found")
+    st.markdown("Assets directory not found")
 
 st.title("Gift Tree Profit Probability Calculator")
 
