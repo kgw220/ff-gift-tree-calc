@@ -12,22 +12,32 @@ st.title("Gift Tree Profit Probability Calculator")
 
 n_trees = st.slider("Number of Gift Trees", min_value=1, max_value=20, value=20, step=1)
 
-gift_tree_seed_cost = st.radio(
+# Selection for cost of gift tree seeds
+cost_per_tree = st.radio(
     "Gift Tree Seed Cost",
     ["$1,900,000", "$2,000,000", "$2,100,000"],
     horizontal=True
 )
-
-# Map display values to numeric values
-display_to_value = {
+gift_tree_cost_convert = {
     "$1,900,000": 1900000,
     "$2,000,000": 2000000,
     "$2,100,000": 2100000,
 }
+cost_per_tree = gift_tree_cost_convert[cost_per_tree]
 
-cost_per_tree = display_to_value[gift_tree_seed_cost]
+# Mode selection on rather user wants to see probabilities or percentages
+mode = st.radio(
+    "Display Mode",
+    ["Probabilities", "Percentages"],
+    horizontal=True
+)
+mode_convert = {
+    "Probabilities": False,
+    "Percentages": True,
+}   
+mode = mode_convert[mode]
 
-# TODO: Update this to show percentages instead of probabilities
+
 if st.button("Compute Probability"):
     gt = gift_tree(n_trees=n_trees, cost_per_tree=cost_per_tree)
     prob_of_profit, fruits, pmf, profits = gt.compute_profit_probability()
@@ -41,5 +51,5 @@ if st.button("Compute Probability"):
     st.write(f"Average Profit: {summary_stats['average_profit']:,.0f} gold")
 
     # Display the PMF plot
-    plot = gt.get_prob_plot(fruits, pmf, profits)
+    plot = gt.get_pmf_plot(fruits, pmf, profits, mode)
     components.html(plot, height=600)
