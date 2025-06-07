@@ -13,8 +13,10 @@ from calculations.gifttree import gift_tree
 
 st.title("Gift Tree Profit Probability Calculator")
 
+st.sidebar.header("Configuration:")
+
 # Input for number of gift trees
-n_trees = st.slider("Number of Gift Trees", min_value=1, max_value=20, value=20, step=1)
+n_trees = st.sidebar.slider("Number of Gift Trees", min_value=1, max_value=20, value=20, step=1)
 
 # Selection for cost of gift tree seeds
 cost_per_tree = st.radio(
@@ -28,7 +30,7 @@ gift_tree_cost_convert = {
 cost_per_tree = gift_tree_cost_convert[cost_per_tree]
 
 # Mode selection on rather user wants to see probabilities or percentages
-mode_label = st.radio("Display Mode", ["Probability", "Percentage"], horizontal=True)
+mode_label = st.sidebar.radio("Display Mode", ["Probability", "Percentage"], horizontal=True)
 mode_convert = {
     "Probability": False,
     "Percentage": True,
