@@ -6,6 +6,25 @@ import streamlit as st
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from calculations.gifttree import gift_tree
 
+import base64
+
+with open("assets/Kalyant Demo-Bold.otf", "rb") as f:
+    font_base64 = base64.b64encode(f.read()).decode("utf-8")
+
+font_css = f"""
+<style>
+@font-face {{
+    font-family: 'KalyantBold';
+    src: url(data:font/opentype;base64,{font_base64}) format('opentype');
+}}
+
+html, body, [class*="css"]  {{
+    font-family: 'KalyantBold', sans-serif;
+}}
+</style>
+"""
+
+st.markdown(font_css, unsafe_allow_html=True)
 
 st.title("Gift Tree Profit Probability Calculator")
 

@@ -84,6 +84,7 @@ class gift_tree:
         }
     
 
+    # TODO: Update this to save figure potentially as html
     def get_prob_plot(self, fruits: np.array, pmf: np.array, profits: np.array) -> go.Figure:
         """
         Generate a plot of the probability mass function (PMF) for the total fruit count.
@@ -132,8 +133,11 @@ class gift_tree:
             xaxis_title='Total Fruit Count',
             yaxis_title='Probability',
             showlegend=True,
-            font=dict(family="Kalyant Bold"),
-            title_font=dict(family="Kalyant Bold"),
+            font=dict(
+                family="KalyantBold",  # This must match CSS below
+                size=18,
+                color="black"
+            ),
             images=[dict(
                 source="garden.jpg",
                 xref="paper",
