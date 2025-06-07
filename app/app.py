@@ -41,18 +41,18 @@ prob_of_profit, fruits, pmf, profits = gt.compute_profit_probability()
 
 # If percentages are selected, show percentage of making profit. Otherwise, show probability.
 if mode:
-    st.markdown(
+    st.sidebar.markdown(
         f"{mode_label} of making a profit from {n_trees} tree(s): `{prob_of_profit * 100:.4f}%`"
     )
 else:
-    st.markdown(
+    st.sidebar.markdown(
         f"{mode_label} of making a profit from {n_trees} tree(s): `{prob_of_profit:.4f}`"
     )
 
 # Display summary statistics
-st.markdown(f"Min Profit: {gt.get_min(profits):,.0f} gold")
-st.markdown(f"Max Profit: {gt.get_max(profits):,.0f} gold")
-st.markdown(f"Average Profit: {gt.get_average(profits):,.0f} gold")
+st.sidebar.markdown(f"Min Profit: {gt.get_min(profits):,.0f} gold")
+st.sidebar.markdown(f"Max Profit: {gt.get_max(profits):,.0f} gold")
+st.sidebar.markdown(f"Average Profit: {gt.get_average(profits):,.0f} gold")
 
 # Display the PMF plot
 plot = gt.get_pmf_plot(fruits, pmf, profits, mode)
