@@ -130,14 +130,7 @@ class gift_tree:
             name='Profit Threshold',
             line=dict(color='red', dash='dash')
         ))
-
-        # Embedding background image
-        img = Image.open("assets/garden.jpg")
-        buffer = BytesIO()
-        img.save(buffer, format="PNG")
-        encoded_image = base64.b64encode(buffer.getvalue()).decode()
-        img_uri = "data:image/png;base64," + encoded_image
-
+        
         # Defining custom css for the font
         with open("../app/assets/Kalyant Demo-Bold.otf", "rb") as f:
             font_base64 = base64.b64encode(f.read()).decode("utf-8")
@@ -162,20 +155,7 @@ class gift_tree:
                 color="white" # Change color of plot 
             ),
             paper_bgcolor='rgba(0,0,0,0)',
-            images=[dict(
-                source=img_uri,
-                xref="paper",
-                yref="paper",
-                x=0,
-                y=1,
-                sizex=1,
-                sizey=1,
-                xanchor="left",
-                yanchor="top",
-                sizing="stretch",
-                opacity=0.3,
-                layer="below"
-            )]
+            plot_bgcolor='rgba(0,0,0,0)'
         )
 
         # Convert to HTML
