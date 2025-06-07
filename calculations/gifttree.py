@@ -1,5 +1,9 @@
 import numpy as np
 import plotly.graph_objects as go
+import base64
+
+from PIL import Image
+from io import BytesIO
 
 class gift_tree:
     """
@@ -127,6 +131,13 @@ class gift_tree:
             line=dict(color='red', dash='dash')
         ))
 
+        # Embedding background image
+        img = Image.open("assets/garden.jpg")
+        buffer = BytesIO()
+        img.save(buffer, format="PNG")
+        encoded_image = base64.b64encode(buffer.getvalue()).decode()
+        img_uri = "data:image/png;base64," + encoded_image
+
         # Layout
         fig.update_layout(
             title=f'Probability of Total Fruits for {self.n_trees} Gift Trees',
@@ -139,7 +150,7 @@ class gift_tree:
                 color="black"
             ),
             images=[dict(
-                source="garden.jpg",
+                source=img_uri,
                 xref="paper",
                 yref="paper",
                 x=0,
