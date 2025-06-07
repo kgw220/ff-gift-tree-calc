@@ -4,6 +4,7 @@ import base64
 
 from PIL import Image
 from io import BytesIO
+from pathlib import Path
 
 class gift_tree:
     """
@@ -88,7 +89,7 @@ class gift_tree:
         }
     
 
-    # TODO: Update this to save figure potentially as html
+    # TODO: Update this so background is transparent and font is correctly set
     def get_prob_plot(self, fruits: np.array, pmf: np.array, profits: np.array) -> go.Figure:
         """
         Generate a plot of the probability mass function (PMF) for the total fruit count.
@@ -138,6 +139,18 @@ class gift_tree:
         encoded_image = base64.b64encode(buffer.getvalue()).decode()
         img_uri = "data:image/png;base64," + encoded_image
 
+        # Defining custom css for the font
+        with open("../app/assets/Kalyant Demo-Bold.otf", "rb") as f:
+            font_base64 = base64.b64encode(f.read()).decode("utf-8")
+
+        font_css = f"""
+                    <style>
+                    @font-face {{
+                        font-family: 'KalyantBold';
+                        src: url(data:font/opentype;base64,{font_base64}) format('opentype');
+                    }}
+                    </style>
+                    """
         # Layout
         fig.update_layout(
             title=f'Probability of Total Fruits for {self.n_trees} Gift Trees',
@@ -145,7 +158,7 @@ class gift_tree:
             yaxis_title='Probability',
             showlegend=True,
             font=dict(
-                family="KalyantBold",  # This must match CSS below
+                family="KalyantBold",  
                 size=18,
                 color="black"
             ),
@@ -165,4 +178,7 @@ class gift_tree:
             )]
         )
 
-        return fig
+        # Convert to HTML
+        html = font_css + fig.to_html(include_plotlyjs='cdn')
+
+        return html

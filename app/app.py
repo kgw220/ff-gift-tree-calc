@@ -1,36 +1,20 @@
 import sys
 import os
 import streamlit as st
+import streamlit.components.v1 as components
 
 # Importing gift tree module
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from calculations.gifttree import gift_tree
 
-import base64
-
-with open("assets/Kalyant Demo-Bold.otf", "rb") as f:
-    font_base64 = base64.b64encode(f.read()).decode("utf-8")
-
-font_css = f"""
-<style>
-@font-face {{
-    font-family: 'KalyantBold';
-    src: url(data:font/opentype;base64,{font_base64}) format('opentype');
-}}
-
-html, body, [class*="css"]  {{
-    font-family: 'KalyantBold', sans-serif;
-}}
-</style>
-"""
-
-st.markdown(font_css, unsafe_allow_html=True)
-
 st.title("Gift Tree Profit Probability Calculator")
 
 n_trees = st.slider("Number of Gift Trees", min_value=1, max_value=20, value=20, step=1)
+
+# NOTE: Probably better at separate buttons since there are only three options
 cost_per_tree = st.slider("Cost of Gift Tree Seed", min_value=1_900_000, max_value=2_100_000, value=(1_900_000), step=100_000)
 
+# TODO: Update this to show percentages instead of probabilities
 if st.button("Compute Probability"):
     gt = gift_tree(n_trees=n_trees, cost_per_tree=cost_per_tree)
     prob_of_profit, fruits, pmf, profits = gt.compute_profit_probability()
@@ -45,4 +29,4 @@ if st.button("Compute Probability"):
 
     # Display the PMF plot
     plot = gt.get_prob_plot(fruits, pmf, profits)
-    st.plotly_chart(plot, use_container_width=True)
+    components.html(plot, height=600)
