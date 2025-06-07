@@ -1,6 +1,10 @@
 import sys
 import os
 import streamlit as st
+import subprocess
+
+# Print installed packages
+st.code(subprocess.check_output("pip freeze", shell=True).decode())
 
 # Now import the class
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
