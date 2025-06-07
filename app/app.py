@@ -9,15 +9,18 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from calculations.gifttree import gift_tree
 
 # Step 3: Read base64 string from file
-cwd = os.getcwd()
-st.write("📂 Current working directory:", cwd)
+app_dir = os.path.join(os.getcwd(), "app")
 
-# List files and folders in cwd
-st.write("📄 Files and folders in cwd:")
-st.write(os.listdir(cwd))
-
-font_b64_path = Path("font_base64.txt")  
-font_base64 = "".join(Path("font_base64.txt").read_text(encoding="utf-8").splitlines()).strip()
+if os.path.exists(app_dir):
+    st.write("📁 Files in `/app` directory:")
+    for root, dirs, files in os.walk(app_dir):
+        for name in files:
+            full_path = os.path.relpath(os.path.join(root, name), start=os.getcwd())
+            st.write("•", full_path)
+else:
+    st.warning("🚫 'app/' directory not found.")
+font_b64_path = Path("app/font_base64.txt")  
+font_base64 = "".join(Path("app/font_base64.txt").read_text(encoding="utf-8").splitlines()).strip()
 
 
 # Step 4: Define @font-face CSS with the embedded base64 font
