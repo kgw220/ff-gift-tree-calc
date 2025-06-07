@@ -130,18 +130,14 @@ class gift_tree:
             name='Profit Threshold',
             line=dict(color='red', dash='dash')
         ))
-        
-        # Defining custom css for the font
 
-        repo_root = Path(__file__).resolve().parent.parent  # from calculations/ → up to root
+        # Reference parent directory to find font file
+        repo_root = Path(__file__).resolve().parent.parent  
         font_path = repo_root / "app/assets/Kalyant Demo-Bold.otf"
 
-        # Load the file safely
+        # Read the font file and encode it in base64
         font_base64 = base64.b64encode(font_path.read_bytes()).decode("utf-8")
- 
-        # font_path = Path("assets/Kalyant Demo-Bold.otf")
-        # font_base64 = base64.b64encode(font_path.read_bytes()).decode("utf-8")
-
+        # Create CSS for the font
         font_css = f"""
                     <style>
                     @font-face {{
@@ -150,7 +146,8 @@ class gift_tree:
                     }}
                     </style>
                     """
-        # Layout
+        
+        # Update layout with custom font and styling
         fig.update_layout(
             title=f'Probability of Total Fruits for {self.n_trees} Gift Trees',
             xaxis_title='Total Fruit Count',
@@ -159,7 +156,7 @@ class gift_tree:
             font=dict(
                 family="KalyantBold",  
                 size=18,
-                color="white" # Change color of plot 
+                color="white" 
             ),
             paper_bgcolor='rgba(0,0,0,0)',
             plot_bgcolor='rgba(0,0,0,0)'
