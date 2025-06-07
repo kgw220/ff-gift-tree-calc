@@ -2,18 +2,31 @@ import sys
 import os
 import streamlit as st
 import streamlit.components.v1 as components
+from pathlib import Path
 
 # Importing gift tree module
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from calculations.gifttree import gift_tree
 
-st.markdown("Current directory:", os.getcwd())
+# Step 3: Read base64 string from file
+font_b64_path = Path("assets/font_base64.txt")  
+font_base64 = font_b64_path.read_text(encoding="utf-8").strip()
 
-# Try to list the assets folder
-try:
-    st.markdown("Assets:", os.listdir("assets"))
-except FileNotFoundError:
-    st.markdown("Assets directory not found")
+# Step 4: Define @font-face CSS with the embedded base64 font
+font_css = f"""
+<style>
+@font-face {{
+    font-family: 'KalyantBold';
+    src: url(data:font/opentype;base64,{font_base64}) format('opentype');
+}}
+body, .plotly-chart text {{
+    font-family: 'KalyantBold', sans-serif;
+}}
+</style>
+"""
+
+# Step 5: Inject into Streamlit
+st.markdown(font_css, unsafe_allow_html=True)
 
 st.title("Gift Tree Profit Probability Calculator")
 
