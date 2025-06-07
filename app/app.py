@@ -47,11 +47,10 @@ if mode:
 else:
     st.markdown(f"### {mode_label} of making a profit from {n_trees} tree(s): `{prob_of_profit:.4f}`")
 
-# Summary stats
-summary_stats = gt.get_summary_stats(profits)
-st.markdown(f"#### Min Profit: {summary_stats['min_profit']:,.0f} gold")
-st.markdown(f"#### Max Profit: {summary_stats['max_profit']:,.0f} gold")
-st.markdown(f"#### Average Profit: {summary_stats['average_profit']:,.0f} gold")
+# Display summary statistics
+st.markdown(f"#### Min Profit: {gt.get_min(profits):,.0f} gold")
+st.markdown(f"#### Max Profit: {gt.get_max(profits):,.0f} gold")
+st.markdown(f"#### Average Profit: {gt.get_average(profits):,.0f} gold")
 
 # Display the PMF plot
 plot = gt.get_pmf_plot(fruits, pmf, profits, mode)
