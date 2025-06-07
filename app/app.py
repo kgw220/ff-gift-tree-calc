@@ -8,37 +8,6 @@ from pathlib import Path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from calculations.gifttree import gift_tree
 
-# Step 3: Read base64 string from file
-app_dir = os.path.join(os.getcwd(), "app")
-
-if os.path.exists(app_dir):
-    st.write("📁 Files in `/app` directory:")
-    for root, dirs, files in os.walk(app_dir):
-        for name in files:
-            full_path = os.path.relpath(os.path.join(root, name), start=os.getcwd())
-            st.write("•", full_path)
-else:
-    st.warning("🚫 'app/' directory not found.")
-font_b64_path = Path("app/font_base64.txt")  
-font_base64 = "".join(Path("app/font_base64.txt").read_text(encoding="utf-8").splitlines()).strip()
-
-
-# Step 4: Define @font-face CSS with the embedded base64 font
-font_css = f"""
-<style>
-@font-face {{
-    font-family: 'KalyantBold';
-    src: url(data:font/opentype;base64,{font_base64}) format('opentype');
-}}
-body, .plotly-chart text {{
-    font-family: 'KalyantBold', sans-serif;
-}}
-</style>
-"""
-
-# Step 5: Inject into Streamlit
-st.markdown(font_css, unsafe_allow_html=True)
-
 st.title("Gift Tree Profit Probability Calculator")
 
 n_trees = st.slider("Number of Gift Trees", min_value=1, max_value=20, value=20, step=1)
