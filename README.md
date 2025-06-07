@@ -1,0 +1,1 @@
+Repository with a python class for calculating and visualizing gift tree profits. Associated sample app to utilize said class is linked here: https://fantastic-frontier-gift-tree-calculator.streamlit.app/
