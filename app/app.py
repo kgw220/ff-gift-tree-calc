@@ -11,15 +11,13 @@ import streamlit.components.v1 as components
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from calculations.gifttree import gift_tree
 
-st.title("Gift Tree Profit Probability Calculator")
-
-st.sidebar.header("Configuration:")
+st.sidebar.header("Gift Tree Profit Probability Calculator")
 
 # Input for number of gift trees
 n_trees = st.sidebar.slider("Number of Gift Trees", min_value=1, max_value=20, value=20, step=1)
 
 # Selection for cost of gift tree seeds
-cost_per_tree = st.radio(
+cost_per_tree = st.sidebar.radio(
     "Gift Tree Seed Cost", ["$1,900,000", "$2,000,000", "$2,100,000"], horizontal=True
 )
 gift_tree_cost_convert = {
