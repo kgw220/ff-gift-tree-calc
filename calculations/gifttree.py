@@ -1,3 +1,7 @@
+"""
+Utilities for calculating and displaying gift tree profits.
+"""
+
 import numpy as np
 import plotly.graph_objects as go
 import base64
@@ -6,9 +10,6 @@ from pathlib import Path
 
 
 class gift_tree:
-    """
-    Class including methods for calculating and display gift tree profits.
-    """
 
     # Possible outcomes for the number of gift fruit that can occur from a single tree
     fruit_values = [2, 3, 4, 5]
@@ -109,7 +110,7 @@ class gift_tree:
         return profits.mean()
 
     def get_pmf_plot(
-        self, fruits: np.array, pmf: np.array, profits: np.array, percent: bool = False
+        self, fruits: np.array, pmf: np.array, profits: np.array, percent: bool, light_mode: bool
     ) -> go.Figure:
         """
         Generate a plot of the probability mass function (PMF) for the total fruit count.
@@ -124,6 +125,8 @@ class gift_tree:
             Corresponding profit values; returned from compute_profit_probability.
         - percent: bool
             If True, display the PMF as percentages instead of probabilities.
+        - light_mode: bool
+            If True, use light mode styling for the plot.
 
         Returns:
         - go.Figure:
@@ -135,6 +138,9 @@ class gift_tree:
             label = "Percentage"
         else:
             label = "Probability"
+        
+        # If light mode is enabled, set the text color to black
+        text_color = "black" if light_mode else "white"
 
         # Compute the minimum number of fruits needed to break even
         break_even_fruit_count = np.min(fruits[profits > 0])
@@ -198,7 +204,7 @@ class gift_tree:
             xaxis_title="Total Fruit Count",
             yaxis_title=label,
             showlegend=True,
-            font=dict(family="KalyantBold", size=18, color="white"),
+            font=dict(family="KalyantBold", size=18, color=text_color),
             paper_bgcolor="rgba(0,0,0,0)",
             plot_bgcolor="rgba(0,0,0,0)",
         )
