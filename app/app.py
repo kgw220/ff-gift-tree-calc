@@ -53,6 +53,10 @@ else:
 st.sidebar.markdown(f"Min Profit: {gt.get_min(profits):,.0f} gold")
 st.sidebar.markdown(f"Max Profit: {gt.get_max(profits):,.0f} gold")
 st.sidebar.markdown(f"Average Profit: {gt.get_average(profits):,.0f} gold")
+st.markdown(
+    '<span style="color: black;">Calculator only properly renders in dark mode!</span>',
+    unsafe_allow_html=True
+)
 
 # Display the PMF plot
 plot = gt.get_pmf_plot(fruits=fruits, pmf=pmf, profits=profits, percent=mode)
