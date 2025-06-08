@@ -191,9 +191,9 @@ class gift_tree:
 
         # Update layout with custom font and styling
         if percent:
-            label_title = f"Percentages of All Possible Fruit Counts from {self.n_trees} Gift Trees"
+            label_title = f"Percentages of All Possible Fruit Counts from {self.n_trees} Gift Tree(s)"
         else:
-            label_title = f"Probabilities of All Possible Fruit Counts from {self.n_trees} Gift Trees"
+            label_title = f"Probabilities of All Possible Fruit Counts from {self.n_trees} Gift Tree(s)"
         fig.update_layout(
             title=label_title,
             xaxis_title="Total Fruit Count",
