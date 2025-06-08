@@ -110,8 +110,7 @@ class gift_tree:
         return profits.mean()
 
     def get_pmf_plot(
-        self, fruits: np.array, pmf: np.array, profits: np.array, percent: bool, light_mode: bool
-    ) -> go.Figure:
+        self, fruits: np.array, pmf: np.array, profits: np.array, percent: bool) -> go.Figure:
         """
         Generate a plot of the probability mass function (PMF) for the total fruit count.
 
@@ -125,22 +124,18 @@ class gift_tree:
             Corresponding profit values; returned from compute_profit_probability.
         - percent: bool
             If True, display the PMF as percentages instead of probabilities.
-        - light_mode: bool
-            If True, use light mode styling for the plot.
 
         Returns:
         - go.Figure:
             A Plotly figure object containing the PMF plot.
         """
+        
         # If percent is True, convert PMF to percentages
         if percent:
             pmf = pmf * 100
             label = "Percentage"
         else:
             label = "Probability"
-        
-        # If light mode is enabled, set the text color to black
-        text_color = "black" if light_mode else "white"
 
         # Compute the minimum number of fruits needed to break even
         break_even_fruit_count = np.min(fruits[profits > 0])
@@ -204,7 +199,7 @@ class gift_tree:
             xaxis_title="Total Fruit Count",
             yaxis_title=label,
             showlegend=True,
-            font=dict(family="KalyantBold", size=18, color=text_color),
+            font=dict(family="KalyantBold", size=18, color="white"),
             paper_bgcolor="rgba(0,0,0,0)",
             plot_bgcolor="rgba(0,0,0,0)",
         )

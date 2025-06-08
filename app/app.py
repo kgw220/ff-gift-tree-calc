@@ -55,8 +55,5 @@ st.sidebar.markdown(f"Max Profit: {gt.get_max(profits):,.0f} gold")
 st.sidebar.markdown(f"Average Profit: {gt.get_average(profits):,.0f} gold")
 
 # Display the PMF plot
-bg_color = st.get_option("theme.backgroundColor")
-light_mode = (bg_color is not None) and (bg_color.lower() in {"#ffffff", "white"})
-
-plot = gt.get_pmf_plot(fruits=fruits, pmf=pmf, profits=profits, percent=mode, light_mode=light_mode)
+plot = gt.get_pmf_plot(fruits=fruits, pmf=pmf, profits=profits, percent=mode)
 components.html(plot, height=600)
